@@ -9,7 +9,7 @@ function SubAdminEmailReslover({ subadminId }) {
     const resolveResellerEmail = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.post('http://api.dcvip.one/api/subadmin-email', { subadminId });
+        const response = await axios.post('https://api.dcvip.one/api/subadmin-email', { subadminId });
         setEmail(response.data.email);
       } catch (error) {
         console.error('Error resolving reseller email:', error);

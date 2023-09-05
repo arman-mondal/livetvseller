@@ -28,7 +28,7 @@ export default function ChannelTable() {
    
     useEffect(() => {
         // Fetch data from the API endpoint
-        axios.get('http://api.dcvip.one/get/channels')
+        axios.get('https://api.dcvip.one/get/channels')
           .then((response) => {
             setResellers(response.data);
           })

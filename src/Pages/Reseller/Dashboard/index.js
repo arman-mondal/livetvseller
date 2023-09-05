@@ -136,7 +136,7 @@ export default function ResellerDashboard() {
     // Fetch subadmins from the API
     
 
-    axios.get('http://api.dcvip.one/get/users')
+    axios.get('https://api.dcvip.one/get/users')
       .then((response) => {
        console.log(response.data)
        if(response.status===200){
@@ -150,7 +150,7 @@ export default function ResellerDashboard() {
 
       });
 
-    axios.get('http://api.dcvip.one/reseller/verify',{
+    axios.get('https://api.dcvip.one/reseller/verify',{
         headers:{
             Authorization:sessionStorage.getItem('resellerToken')
         },
@@ -194,7 +194,7 @@ senderId:'',
   };
   const handleaddcredittouser= async()=>{
 
-    const response = await axios.post("http://api.dcvip.one/reseller/transfer",{
+    const response = await axios.post("https://api.dcvip.one/reseller/transfer",{
         senderId:sessionStorage.getItem('resellerId'),
         receiverId:creditdata.undefined,
         creditsToTransfer:parseInt(creditdata.creditToTransfer)
@@ -217,7 +217,7 @@ const handleuserchange = (event) => {
       };
 
 const handleadduserclickbtn= async ()=>{
-    const response = axios.post("http://api.dcvip.one/user",{
+    const response = axios.post("https://api.dcvip.one/user",{
         username:userdata.username,
         email:userdata.email,
         password:userdata.password,

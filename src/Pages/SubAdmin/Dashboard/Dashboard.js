@@ -143,7 +143,7 @@ export default function SubAdminDashboard() {
     }
     React.useEffect(() => {
         // Fetch subadmins from the API
-        axios.get('http://api.dcvip.one/get/resellers',)
+        axios.get('https://api.dcvip.one/get/resellers',)
 
 
             .then((response) => {
@@ -155,7 +155,7 @@ export default function SubAdminDashboard() {
             })
 
 
-        axios.get('http://api.dcvip.one/subadmin/verify',{
+        axios.get('https://api.dcvip.one/subadmin/verify',{
             headers:{
                 Authorization:sessionStorage.getItem('subadminToken')
             },
@@ -214,7 +214,7 @@ export default function SubAdminDashboard() {
       const handlecreditadd = async ()=>{
     
         try {
-          const response = await axios.post('http://api.dcvip.one/transfer-credits',{
+          const response = await axios.post('https://api.dcvip.one/transfer-credits',{
                 senderId:creditdata.senderId,
                 receiverId:creditdata.undefined,
                 creditsToTransfer:parseInt(creditdata.creditToTransfer)
@@ -235,7 +235,7 @@ export default function SubAdminDashboard() {
       };
       const handleresellerclick = async () => {
         // Access the form data from the 'formData' state
-        const response=await axios.post('http://api.dcvip.one/reseller',{
+        const response=await axios.post('https://api.dcvip.one/reseller',{
             username:resellerdata.username,
             email:resellerdata.email,
             password:resellerdata.password,

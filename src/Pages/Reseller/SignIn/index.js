@@ -35,7 +35,7 @@ export default function ResellerLogin() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const response = await axios.post('http://api.dcvip.one/reseller/login', {
+    const response = await axios.post('https://api.dcvip.one/reseller/login', {
         email: data.get('email'),
         password: data.get('password')
     })

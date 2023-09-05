@@ -22,7 +22,7 @@ export default function ResellerTable() {
 
     useEffect(() => {
         // Fetch data from the API endpoint
-        axios.get('http://api.dcvip.one/get/resellers')
+        axios.get('https://api.dcvip.one/get/resellers')
           .then((response) => {
             setResellers(response.data);
           })

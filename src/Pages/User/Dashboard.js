@@ -111,7 +111,7 @@ export default function Dashboard() {
 
   React.useEffect(() => {
 
-    axios.get('http://api.dcvip.one/get/channels')
+    axios.get('https://api.dcvip.one/get/channels')
       .then((response) => {
        console.log(response.data)
        if(response.status===200){
@@ -124,7 +124,7 @@ export default function Dashboard() {
         console.error('Error fetching subadmins:', error);
       });
 
-  axios.get('http://api.dcvip.one/user/verify',{
+  axios.get('https://api.dcvip.one/user/verify',{
     headers:{
         Authorization:sessionStorage.getItem('userToken')
     },

@@ -28,7 +28,7 @@ export default function UsersTable() {
    
     useEffect(() => {
         // Fetch data from the API endpoint
-        axios.get('http://api.dcvip.one/get/subadmins')
+        axios.get('https://api.dcvip.one/get/subadmins')
           .then((response) => {
             setResellers(response.data);
           })

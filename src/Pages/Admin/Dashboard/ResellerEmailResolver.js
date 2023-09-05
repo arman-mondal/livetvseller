@@ -9,7 +9,7 @@ function ResellerEmailResolver({ resellerId }) {
     const resolveResellerEmail = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.post('http://api.dcvip.one/api/reseller-email', { resellerId });
+        const response = await axios.post('https://api.dcvip.one/api/reseller-email', { resellerId });
         setEmail(response.data.email);
       } catch (error) {
         console.error('Error resolving reseller email:', error);

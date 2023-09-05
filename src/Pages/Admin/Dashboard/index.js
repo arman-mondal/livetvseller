@@ -169,7 +169,7 @@ export default function AdminDashboard() {
     }
     React.useEffect(() => {
         // Fetch subadmins from the API
-        axios.get('http://api.dcvip.one/get/subadmins')
+        axios.get('https://api.dcvip.one/get/subadmins')
           .then((response) => {
             setSubadmins(response.data);
           })
@@ -191,7 +191,7 @@ export default function AdminDashboard() {
         }));
       };
       const handlecreditadd=async()=>{
-        const response=await axios.post('http://api.dcvip.one/subadmin/add-credits',{
+        const response=await axios.post('https://api.dcvip.one/subadmin/add-credits',{
             subadminId:creditddata.undefined,
             creditsToAdd:creditddata.amount
         })
@@ -221,7 +221,7 @@ export default function AdminDashboard() {
         }));
       };
       const handlesubadminClick = async() => {
-        const response=await axios.post('http://api.dcvip.one/subadmin',{
+        const response=await axios.post('https://api.dcvip.one/subadmin',{
             username:subadminData.username,
             email:subadminData.email,
             password:subadminData.password
@@ -269,7 +269,7 @@ export default function AdminDashboard() {
         }));
       };
       const handleresellerclick =async () => {
-        const response=await axios.post('http://api.dcvip.one/reseller',{
+        const response=await axios.post('https://api.dcvip.one/reseller',{
             username:resellerdata.username,
             email:resellerdata.email,
             password:resellerdata.password
@@ -298,7 +298,7 @@ export default function AdminDashboard() {
       };
       const handlechannelclick =async () => {
         // Access the form data from the 'formData' state
-        const response=await axios.post('http://api.dcvip.one/channels',{
+        const response=await axios.post('https://api.dcvip.one/channels',{
             channelName:channeldata.channelName,
             mpdKey:channeldata.mpdKey,
             clearKey:channeldata.clearKey
