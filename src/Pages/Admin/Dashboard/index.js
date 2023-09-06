@@ -34,6 +34,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import { LoginOutlined } from '@mui/icons-material';
 import Chart from './Chart';
 import BasicTable from './ResellerChart';
+import SvgIcon from '@mui/material/SvgIcon';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -43,6 +44,7 @@ import ResellerTable from './ResellerChart';
 import UsersTable from './UsersChart';
 import ChannelTable from './ChannelChart';
 import axios from 'axios';
+import SubAdminTableo from './SubdminTable';
 
 function Copyright(props) {
   return (
@@ -102,6 +104,17 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     },
   }),
 );
+const VisuallyHiddenInput = styled('input')`
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 1px;
+`;
 
 const defaultTheme = createTheme();
 
@@ -114,7 +127,7 @@ export default function AdminDashboard() {
     const[addchannel,setaddchannel]=React.useState(false);
     const [subadmins, setSubadmins] = React.useState([]);
   const [selectedSubadmin, setSelectedSubadmin] = React.useState('');
-
+ 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -167,16 +180,52 @@ export default function AdminDashboard() {
         setaddcreditbtn(true)
         setaddReseller(false);
     }
-    React.useEffect(() => {
-        // Fetch subadmins from the API
-        axios.get('https://api.dcvip.one/get/subadmins')
-          .then((response) => {
-            setSubadmins(response.data);
-          })
-          .catch((error) => {
-            console.error('Error fetching subadmins:', error);
-          });
-      }, []);
+    
+       const [formData, setFormData] = React.useState({
+      channelName: '',
+      mpdKey: '',
+      clearKey: '',
+      image: null,
+      category: 'Champions League', // Default category
+    });
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setFormData({ ...formData, [name]: value });
+    };
+    const handleImageUpload = (event) => {
+      const imageFile = event.target.files[0];
+      setFormData({ ...formData, image: imageFile });
+    };
+ 
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const {channelName,mpdKey,clearKey,image,category}=FormData;
+      const channeldataf=new FormData();
+      channeldataf.append('channelName', formData.channelName);
+      channeldataf.append('mpdKey', formData.mpdKey);
+      channeldataf.append('clearKey', formData.clearKey);
+      channeldataf.append('image', formData.image);
+      channeldataf.append('category', formData.category);
+
+      try {
+        // Perform your POST request here using formData
+        const response = await fetch('https://www.dcvip.one/api/add-channel', {
+          method: 'POST',
+          body: channeldataf});
+  
+        if (response.ok) {
+          // Handle success
+         alert('Data submitted successfully');
+          console.log(response)
+        } else {
+          // Handle errors if necessary
+          alert('Data submission failed'+response);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+      
+    };
     
       const[creditddata,setcreditdata]=React.useState({
         subadminId:'',
@@ -443,13 +492,22 @@ export default function AdminDashboard() {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-               <Title>Users</Title>
+               <Title>SubAdmin</Title>
 
 <UsersTable/>
 
                 </Paper>
               </Grid>
               
+              {/* Recent Orders */}
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+               <Title>Users</Title>
+
+<SubAdminTableo/>
+
+                </Paper>
+              </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
@@ -693,37 +751,71 @@ export default function AdminDashboard() {
                   
                   }}
                 >
-                    <Title>Add Channel</Title><TextField
+                    <Title>Add Channel</Title>
+                    <TextField
         required
         sx={{ m: 2 }}
         id="channelName"
         label="Channel Name"
         type="text"
-        value={channeldata.name}
-        onChange={handlechannelchange}
+        name="channelName"
+        value={formData.channelName}
+        onChange={handleInputChange}
       />
+
       <TextField
         required
         sx={{ m: 2 }}
         id="mpdKey"
-        label="mpdLink"
-        type="url"
-        value={channeldata.mpdKey}
-        onChange={handlechannelchange}
+        label="mpdKey"
+        name="mpdKey"
+        type="text"
+        value={formData.mpdKey}
+        onChange={handleInputChange}
       />
+
       <TextField
         required
         sx={{ m: 2 }}
         id="clearKey"
         label="clearKey"
+        name="clearKey"
         type="text"
-        value={channeldata.clearKey}
-        onChange={handlechannelchange}
+        value={formData.clearKey}
+        onChange={handleInputChange}
       />
-      <Button variant="contained" onClick={handlechannelclick}>
+
+      <FormControl required sx={{ m: 2 }}>
+        <InputLabel>Category</InputLabel>
+        <Select
+        required
+          value={formData.category}
+          onChange={handleInputChange}
+          name="category"
+        >
+          <MenuItem value="Champions League">Champions League</MenuItem>
+          <MenuItem value="LIVE SERIE A">LIVE SERIE A</MenuItem>
+          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
+          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
+          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
+          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
+          <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem>
+        </Select>
+      </FormControl>
+
+      <TextField
+        required
+        sx={{ m: 2 }}
+        id="image"
+        label="Channel Image"
+        name="image"
+        type="file"
+        onChange={handleImageUpload}
+      />
+
+      <Button variant="contained" onClick={handleSubmit}>
         Add
       </Button>
-
                 </Paper>
               </Grid>
               {/* Recent Deposits */}

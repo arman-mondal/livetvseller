@@ -28,7 +28,7 @@ function App() {
 <Route path='/reseller/dashboard/1004' element={<ResellerDashboard/>}/>
 <Route path='/user/signin' element={<UserSignIn/>}/>
 <Route path='/user/dashboard/' element={<UserDashboard/>}/>
-
+<Route path='/livetv' element={<ShakaPlayer/>}/>
   <Route path='/*' element={<ShakaPlayer   />} />
 </Routes>
 

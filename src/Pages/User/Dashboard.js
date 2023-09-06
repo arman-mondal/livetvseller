@@ -101,7 +101,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-    const[mydata,setmydata]=React.useState([]);
+  const[player,setplayer]=React.useState(false)
+      const[mydata,setmydata]=React.useState([]);
     const[channelname,setchannelnames]=React.useState([]);
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -116,6 +117,7 @@ export default function Dashboard() {
        console.log(response.data)
        if(response.status===200){
         setchannelnames(response.data)
+
          }
        else{
        }
@@ -245,12 +247,18 @@ export default function Dashboard() {
                
                   }}
                 >
+                  <Title>LIVE SERIE A</Title>
+           {/*       <MenuItem value="Champions League">Champions League</MenuItem>
+          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
+          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
+          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
+          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
+                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
  <Carousel 
                       showThumbs={false}>
-          {channelname.map((image, index) => (
+          {channelname.filter((channel) => channel.category === "LIVE SERIE A").map((image, index) => (
             <div  key={index}>
               <Card 
-              
               sx={{
                     
                     p: 2,
@@ -258,7 +266,14 @@ export default function Dashboard() {
 
                     }}>
                         <Title>{image.channelName}</Title>
-                <ShakaPlayer mpdKey={image.mpdKey} clearKey={image.clearKey} />
+                <CardMedia
+                  component="img"
+                  alt={`Image ${index}`}
+                  height="50"
+                  image={"https://api.dcvip.one/public"+image.imageUrl}
+                
+                />
+                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
               </Card>
              
             </div>
@@ -266,6 +281,7 @@ export default function Dashboard() {
         </Carousel>
                 </Paper>
               </Grid>
+              
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
@@ -289,8 +305,223 @@ export default function Dashboard() {
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Title>Champions League</Title>
+           {/*       <MenuItem value="">Champions League</MenuItem>
+          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
+          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
+          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
+          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
+                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
+ <Carousel 
+                      showThumbs={false}>
+          {channelname.filter((channel) => channel.category === "Champions League").map((image, index) => (
+            <div  key={index}>
+              <Card 
+              sx={{
+                    
+                    p: 2,
+                    display: 'flex',
+
+                    }}>
+                        <Title>{image.channelName}</Title>
+                <CardMedia
+                  component="img"
+                  alt={`Image ${index}`}
+                  height="50"
+                  image={"https://api.dcvip.one/public"+image.imageUrl}
+                
+                />
+                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
+              </Card>
+             
+            </div>
+          ))}
+        </Carousel>
                 </Paper>
               </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Title>SKY CALCIO</Title>
+           {/*       <MenuItem value="">Champions League</MenuItem>
+          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
+          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
+          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
+          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
+                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
+ <Carousel 
+                      showThumbs={false}>
+          {channelname.filter((channel) => channel.category === "SKY CALCIO").map((image, index) => (
+            <div  key={index}>
+              <Card 
+              sx={{
+                    
+                    p: 2,
+                    display: 'flex',
+
+                    }}>
+                        <Title>{image.channelName}</Title>
+                <CardMedia
+                  component="img"
+                  alt={`Image ${index}`}
+                  height="50"
+                  image={"https://api.dcvip.one/public"+image.imageUrl}
+                
+                />
+                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
+              </Card>
+             
+            </div>
+          ))}
+        </Carousel>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Title>CANALI DAZN</Title>
+           {/*       <MenuItem value="">Champions League</MenuItem>
+          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
+          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
+          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
+          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
+                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
+ <Carousel 
+                      showThumbs={false}>
+          {channelname.filter((channel) => channel.category === "CANALI DAZN").map((image, index) => (
+            <div  key={index}>
+              <Card 
+              sx={{
+                    
+                    p: 2,
+                    display: 'flex',
+
+                    }}>
+                        <Title>{image.channelName}</Title>
+                <CardMedia
+                  component="img"
+                  alt={`Image ${index}`}
+                  height="50"
+                  image={"https://api.dcvip.one/public"+image.imageUrl}
+                
+                />
+                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
+              </Card>
+             
+            </div>
+          ))}
+        </Carousel>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Title>SKY SPORT</Title>
+           {/*       <MenuItem value="">Champions League</MenuItem>
+          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
+          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
+          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
+          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
+                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
+ <Carousel 
+                      showThumbs={false}>
+          {channelname.filter((channel) => channel.category === "SKY SPORT").map((image, index) => (
+            <div  key={index}>
+              <Card 
+              sx={{
+                    
+                    p: 2,
+                    display: 'flex',
+
+                    }}>
+                        <Title>{image.channelName}</Title>
+                <CardMedia
+                  component="img"
+                  alt={`Image ${index}`}
+                  height="50"
+                  image={"https://api.dcvip.one/public"+image.imageUrl}
+                
+                />
+                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
+              </Card>
+             
+            </div>
+          ))}
+        </Carousel>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Title>SKY CINEMA</Title>
+           {/*       <MenuItem value="">Champions League</MenuItem>
+          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
+          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
+          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
+          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
+                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
+ <Carousel 
+                      showThumbs={false}>
+          {channelname.filter((channel) => channel.category === "SKY CINEMA").map((image, index) => (
+            <div  key={index}>
+              <Card 
+              sx={{
+                    
+                    p: 2,
+                    display: 'flex',
+
+                    }}>
+                        <Title>{image.channelName}</Title>
+                <CardMedia
+                  component="img"
+                  alt={`Image ${index}`}
+                  height="50"
+                  image={"https://api.dcvip.one/public"+image.imageUrl}
+                
+                />
+                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
+              </Card>
+             
+            </div>
+          ))}
+        </Carousel>
+                </Paper>
+              </Grid>
+    
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <Title>SKY ALTRI</Title>
+           {/*       <MenuItem value="">Champions League</MenuItem>
+          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
+          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
+          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
+          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
+                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
+ <Carousel 
+                      showThumbs={false}>
+          {channelname.filter((channel) => channel.category === "SKY ALTRI").map((image, index) => (
+            <div  key={index}>
+              <Card 
+              sx={{
+                    
+                    p: 2,
+                    display: 'flex',
+
+                    }}>
+                        <Title>{image.channelName}</Title>
+                <CardMedia
+                  component="img"
+                  alt={`Image ${index}`}
+                  height="50"
+                  image={"https://api.dcvip.one/public"+image.imageUrl}
+                
+                />
+                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
+              </Card>
+             
+            </div>
+          ))}
+        </Carousel>
+                </Paper>
+              </Grid>
+    
+     
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
