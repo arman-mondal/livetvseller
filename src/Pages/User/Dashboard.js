@@ -1,43 +1,27 @@
-import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import {  Card, CardMedia } from '@mui/material';
-import { Carousel } from 'react-responsive-carousel';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import CardSlider from './CardSlider';
-import ImageSlider from './CardSlider';
-import Title  from './Title';
-import ShakaPlayer from './ShakaPlayer';
-import ClearKeyVideoPlayer from './ShakaPlayer';
+import { Card, CardMedia } from '@mui/material';
+import Title from './Title';
+import ChannelList from './ChannelList';
 import axios from 'axios';
 import { LoginOutlined } from '@mui/icons-material';
-import ChannelList from './ChannelList';
+import AppBar from '@mui/material/AppBar';
 
 function Copyright(props) {
   return (
@@ -52,365 +36,137 @@ function Copyright(props) {
   );
 }
 
-const drawerWidth = 240;
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-  const[player,setplayer]=React.useState(false)
-      const[mydata,setmydata]=React.useState([]);
-    const[channelname,setchannelnames]=React.useState([]);
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
+  const [player, setplayer] = useState(false);
+  const [mydata, setmydata] = useState([]);
+  const [channelname, setchannelnames] = useState([]);
+
+  const logout = () => {
+    window.location.href = '/';
+    sessionStorage.removeItem('userToken');
   };
-const logout = ()=>{
-  window.location.href="/" 
-  sessionStorage.removeItem('userToken')
-}
 
-  React.useEffect(() => {
-
-    axios.get('https://api.dcvip.one/get/channels')
+  useEffect(() => {
+    axios
+      .get('https://api.dcvip.one/get/channels')
       .then((response) => {
-       console.log(response.data)
-       if(response.status===200){
-        setchannelnames(response.data)
-
-         }
-       else{
-       }
+        console.log(response.data);
+        if (response.status === 200) {
+          setchannelnames(response.data);
+        } else {
+        }
       })
       .catch((error) => {
         console.error('Error fetching subadmins:', error);
       });
 
-  axios.get('https://api.dcvip.one/user/verify',{
-    headers:{
-        Authorization:sessionStorage.getItem('userToken')
-    },
-})
-  .then((response) => {
-   console.log(response.data)
-   setmydata(response.data.user.user)
-   if(response.status===200){
-    console.log("valid")
-     }
-   else{
-    window.location.href="/user/signin"
-   }
-  })
-  .catch((error) => {
-    console.error('Error fetching subadmins:', error);
-    window.location.href="/user/signin"
-
-  });
-}, []);
-
-  const imagees=[
-    "Sky Sports",
-    "Jio Tv",
-    "Sky Sports",
-    "Jio Tv",
-    "Sky Sports",
-    "Jio Tv",
-    
-  ]
+    axios
+      .get('https://api.dcvip.one/user/verify', {
+        headers: {
+          Authorization: sessionStorage.getItem('userToken'),
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setmydata(response.data.user.user);
+        if (response.status === 200) {
+          console.log('valid');
+        } else {
+          window.location.href = '/user/signin';
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching subadmins:', error);
+        window.location.href = '/user/signin';
+      });
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
+      <CssBaseline />
+      <AppBar position="absolute">
+        <Toolbar>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
           >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
+            Live TV
+          </Typography>
+          <Typography sx={{m:2}} >Username : {mydata.username}</Typography>
+              <Typography sx={{m:2}} >Email : {mydata.email}</Typography>
+              <Typography sx={{m:2}} >Credits : {mydata.credits}</Typography>
+          <IconButton color="inherit" onClick={logout}>
+            <LoginOutlined />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Container
+        maxWidth="lg"
+        sx={{ mt: 4, mb: 4, backgroundColor: (theme) => theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900], flexGrow: 1, height: '100vh', overflow: 'auto' }}
+      >
+        <Toolbar />
+        <Grid container spacing={3}>
+          {/* Chart */}
+          <Grid item xs={12} md={8} lg={15}>
+            <Paper
               sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Live TV
-            </Typography>
-            <IconButton color="inherit" onClick={logout} >
-                <LoginOutlined />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-          <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Live TV" />
-    </ListItemButton>
- 
+              <Title>LIVE SERIE A</Title>
+              <ChannelList channels={channelname.filter((channel) => channel.category === "LIVE SERIE A")} />
+            </Paper>
+          </Grid>
 
-            <Divider sx={{ my: 1 }} />
-          </List>
-        </Drawer>
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-               
-                  }}
-                >
-                  <Title>LIVE SERIE A</Title>
-           {/*       <MenuItem value="Champions League">Champions League</MenuItem>
-          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
-          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
-          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
-          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
-                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
-<ChannelList channels={channelname.filter((channel) => channel.category === "LIVE SERIE A")} />
-                </Paper>
-              </Grid>
-              
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                    <Title>Profile</Title>
-                  <Typography >Username : {mydata.username}</Typography>
-                  <Typography >Email : {mydata.email}</Typography>
-                  <Typography >Credits : {mydata.credits}</Typography>
-
-
-
-
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Title>Champions League</Title>
-           {/*       <MenuItem value="">Champions League</MenuItem>
-          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
-          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
-          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
-          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
-                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
-<ChannelList channels={channelname.filter((channel) => channel.category === "Champions League")} />
-                 </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Title>SKY CALCIO</Title>
-           {/*       <MenuItem value="">Champions League</MenuItem>
-          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
-          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
-          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
-          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
-                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
-<ChannelList channels={channelname.filter((channel) => channel.category === "SKY CALCIO")} />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Title>CANALI DAZN</Title>
-           {/*       <MenuItem value="">Champions League</MenuItem>
-          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
-          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
-          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
-          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
-                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
-                <ChannelList channels={channelname.filter((channel) => channel.category === "CANALI DAZN")} />
-
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Title>SKY SPORT</Title>
-           {/*       <MenuItem value="">Champions League</MenuItem>
-          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
-          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
-          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
-          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
-                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
- <ChannelList channels={channelname.filter((channel) => channel.category === "SKY SPORT")} />
-
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Title>SKY CINEMA</Title>
-           {/*       <MenuItem value="">Champions League</MenuItem>
-          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
-          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
-          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
-          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
-                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
- <Carousel 
-                      showThumbs={false}>
-          {channelname.filter((channel) => channel.category === "SKY CINEMA").map((image, index) => (
-            <div  key={index}>
-              <Card 
-              sx={{
-                    
-                    p: 2,
-                    display: 'flex',
-
-                    }}>
-                        <Title>{image.channelName}</Title>
-                <CardMedia
-                  component="img"
-                  alt={`Image ${index}`}
-                  height="50"
-                  image={"https://api.dcvip.one/public"+image.imageUrl}
-                
-                />
-                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
-              </Card>
-             
-            </div>
-          ))}
-        </Carousel>
-                </Paper>
-              </Grid>
-    
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Title>SKY ALTRI</Title>
-           {/*       <MenuItem value="">Champions League</MenuItem>
-          <MenuItem value="SKY CALCIO">SKY CALCIO</MenuItem>
-          <MenuItem value="CANALI DAZN">CANALI DAZN</MenuItem>
-          <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
-          <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
-                <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
- <Carousel 
-                      showThumbs={false}>
-          {channelname.filter((channel) => channel.category === "SKY ALTRI").map((image, index) => (
-            <div  key={index}>
-              <Card 
-              sx={{
-                    
-                    p: 2,
-                    display: 'flex',
-
-                    }}>
-                        <Title>{image.channelName}</Title>
-                <CardMedia
-                  component="img"
-                  alt={`Image ${index}`}
-                  height="50"
-                  image={"https://api.dcvip.one/public"+image.imageUrl}
-                
-                />
-                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
-              </Card>
-             
-            </div>
-          ))}
-        </Carousel>
-                </Paper>
-              </Grid>
-    
-     
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
-          </Container>
-        </Box>
-      </Box>
+          {/* Recent Deposits */}
+          
+          {/* Recent Orders */}
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Title>Champions League</Title>
+              <ChannelList channels={channelname.filter((channel) => channel.category === "Champions League")} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Title>SKY CALCIO</Title>
+              <ChannelList channels={channelname.filter((channel) => channel.category === "SKY CALCIO")} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Title>CANALI DAZN</Title>
+              <ChannelList channels={channelname.filter((channel) => channel.category === "CANALI DAZN")} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Title>SKY SPORT</Title>
+              <ChannelList channels={channelname.filter((channel) => channel.category === "SKY SPORT")} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Title>SKY CINEMA</Title>
+              <ChannelList channels={channelname.filter((channel) => channel.category === "SKY CINEMA")} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Title>SKY ALTRI</Title>
+              <ChannelList channels={channelname.filter((channel) => channel.category === "SKY ALTRI")} />
+            </Paper>
+          </Grid>
+        </Grid>
+        <Copyright sx={{ pt: 4 }} />
+      </Container>
     </ThemeProvider>
   );
 }

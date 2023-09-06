@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Add this CSS to you
+/* Add this CSS to your existing CSS file or create a new one */
+
+/* Style for the container that holds the channel image and text */
+.channel-container {
+    position: relative;
+    text-align: center; /* Center the image and text horizontally */
+  }
+  .containner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }  
+  /* Style for the channel image */
+  .channel-image {
+    width: 100%; /* Ensure the image scales proportionally */
+    height: 100%; /* Set the maximum height for the image */
+  
+    display: block; /* Remove extra space below inline images */
+    margin: 0 auto; /* Center the image horizontally */
+  }
+  
+  /* Style for the channel name text */
+  .channel-name {
+    position: absolute;
+    bottom: 10px; /* Adjust the distance from the bottom as needed */
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7); /* Background color with transparency */
+    color: #fff; /* Text color */
+    padding: 5px 0; /* Padding for text */
+    font-size: 10px; /* Font size for text */
+  }
+  
