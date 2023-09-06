@@ -5,31 +5,17 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import "../../App.css"
 const ImageSlider = ({ images }) => {
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Typography variant="h5" gutterBottom>
-          Image Slider
-        </Typography>
-      </Grid>
-      <Grid item className='w-full flex items-center'  lg={2}>
-        <Carousel showThumbs={false}>
-          {images.map((image, index) => (
-            <div key={index}>
-              <Card>
-                <CardMedia
-                  component="img"
-                  alt={`Image ${index}`}
-                  height="200"
-                  image={image}
-                />
+   
+    <div className="carousel carousel-center rounded-box">
+  <div  className="carousel-item m-5  backdrop:blur-lg">
+    <img src="https://th.bing.com/th?id=OIF.%2fiCgth%2fT81LBcKEc9kRpIA&pid=ImgDet&rs=1" alt="Pizza" />
+  </div> 
+ 
+</div>
                 
-              </Card>
-             
-            </div>
-          ))}
-        </Carousel>
-      </Grid>
-    </Grid>
+                     
+      
+       
   );
 };
 

@@ -37,6 +37,7 @@ import ShakaPlayer from './ShakaPlayer';
 import ClearKeyVideoPlayer from './ShakaPlayer';
 import axios from 'axios';
 import { LoginOutlined } from '@mui/icons-material';
+import ChannelList from './ChannelList';
 
 function Copyright(props) {
   return (
@@ -108,7 +109,10 @@ export default function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
+const logout = ()=>{
+  window.location.href="/" 
+  sessionStorage.removeItem('userToken')
+}
 
   React.useEffect(() => {
 
@@ -187,12 +191,10 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Live TV
             </Typography>
-            <IconButton color="inherit" onClick={()=>window.location.href="/"} >
-              <Badge badgeContent={4} color="secondary">
+            <IconButton color="inherit" onClick={logout} >
                 <LoginOutlined />
-              </Badge>
             </IconButton>
           </Toolbar>
         </AppBar>
@@ -215,7 +217,7 @@ export default function Dashboard() {
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Live TV" />
     </ListItemButton>
  
 
@@ -254,31 +256,7 @@ export default function Dashboard() {
           <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
           <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
                 <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
- <Carousel 
-                      showThumbs={false}>
-          {channelname.filter((channel) => channel.category === "LIVE SERIE A").map((image, index) => (
-            <div  key={index}>
-              <Card 
-              sx={{
-                    
-                    p: 2,
-                    display: 'flex',
-
-                    }}>
-                        <Title>{image.channelName}</Title>
-                <CardMedia
-                  component="img"
-                  alt={`Image ${index}`}
-                  height="50"
-                  image={"https://api.dcvip.one/public"+image.imageUrl}
-                
-                />
-                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
-              </Card>
-             
-            </div>
-          ))}
-        </Carousel>
+<ChannelList channels={channelname.filter((channel) => channel.category === "LIVE SERIE A")} />
                 </Paper>
               </Grid>
               
@@ -312,32 +290,8 @@ export default function Dashboard() {
           <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
           <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
                 <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
- <Carousel 
-                      showThumbs={false}>
-          {channelname.filter((channel) => channel.category === "Champions League").map((image, index) => (
-            <div  key={index}>
-              <Card 
-              sx={{
-                    
-                    p: 2,
-                    display: 'flex',
-
-                    }}>
-                        <Title>{image.channelName}</Title>
-                <CardMedia
-                  component="img"
-                  alt={`Image ${index}`}
-                  height="50"
-                  image={"https://api.dcvip.one/public"+image.imageUrl}
-                
-                />
-                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
-              </Card>
-             
-            </div>
-          ))}
-        </Carousel>
-                </Paper>
+<ChannelList channels={channelname.filter((channel) => channel.category === "Champions League")} />
+                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
@@ -348,31 +302,7 @@ export default function Dashboard() {
           <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
           <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
                 <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
- <Carousel 
-                      showThumbs={false}>
-          {channelname.filter((channel) => channel.category === "SKY CALCIO").map((image, index) => (
-            <div  key={index}>
-              <Card 
-              sx={{
-                    
-                    p: 2,
-                    display: 'flex',
-
-                    }}>
-                        <Title>{image.channelName}</Title>
-                <CardMedia
-                  component="img"
-                  alt={`Image ${index}`}
-                  height="50"
-                  image={"https://api.dcvip.one/public"+image.imageUrl}
-                
-                />
-                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
-              </Card>
-             
-            </div>
-          ))}
-        </Carousel>
+<ChannelList channels={channelname.filter((channel) => channel.category === "SKY CALCIO")} />
                 </Paper>
               </Grid>
               <Grid item xs={12}>
@@ -384,31 +314,8 @@ export default function Dashboard() {
           <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
           <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
                 <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
- <Carousel 
-                      showThumbs={false}>
-          {channelname.filter((channel) => channel.category === "CANALI DAZN").map((image, index) => (
-            <div  key={index}>
-              <Card 
-              sx={{
-                    
-                    p: 2,
-                    display: 'flex',
+                <ChannelList channels={channelname.filter((channel) => channel.category === "CANALI DAZN")} />
 
-                    }}>
-                        <Title>{image.channelName}</Title>
-                <CardMedia
-                  component="img"
-                  alt={`Image ${index}`}
-                  height="50"
-                  image={"https://api.dcvip.one/public"+image.imageUrl}
-                
-                />
-                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
-              </Card>
-             
-            </div>
-          ))}
-        </Carousel>
                 </Paper>
               </Grid>
               <Grid item xs={12}>
@@ -420,31 +327,8 @@ export default function Dashboard() {
           <MenuItem value="SKY SPORT">SKY SPORT</MenuItem>
           <MenuItem value="SKY CINEMA">SKY CINEMA</MenuItem>
                 <MenuItem value="SKY ALTRI">SKY ALTRI</MenuItem> */}
- <Carousel 
-                      showThumbs={false}>
-          {channelname.filter((channel) => channel.category === "SKY SPORT").map((image, index) => (
-            <div  key={index}>
-              <Card 
-              sx={{
-                    
-                    p: 2,
-                    display: 'flex',
+ <ChannelList channels={channelname.filter((channel) => channel.category === "SKY SPORT")} />
 
-                    }}>
-                        <Title>{image.channelName}</Title>
-                <CardMedia
-                  component="img"
-                  alt={`Image ${index}`}
-                  height="50"
-                  image={"https://api.dcvip.one/public"+image.imageUrl}
-                
-                />
-                 <ShakaPlayer channelName={image.channelName} mpdKey={image.mpdKey} clearKey={image.clearKey}  /> 
-              </Card>
-             
-            </div>
-          ))}
-        </Carousel>
                 </Paper>
               </Grid>
               <Grid item xs={12}>

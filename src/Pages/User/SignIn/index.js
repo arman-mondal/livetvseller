@@ -29,7 +29,35 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 export default function UserSignIn() {
+
     const navigate=useNavigate();
+    React.useEffect(() => {
+      const userToken = sessionStorage.getItem('userToken');
+      if (userToken) {
+        axios.get('https://api.dcvip.one/user/verify', {
+          headers: {
+            Authorization: userToken,
+          },
+        })
+        .then((response) => {
+          const userData = response.data.user;
+          console.log('User data:', userData);
+          // Token is valid, you can navigate to the dashboard or perform other actions
+          navigate('/user/dashboard');
+        })
+        .catch((error) => {
+          console.error('Error verifying token:', error);
+          // Token is invalid, you can handle this case accordingly
+        });
+        // You can add code here to verify the token if needed
+        // For now, simply redirect to /user/dashboard if a token is found
+        navigate('/user/dashboard');
+      }
+    }, []);
+    
+    
+    
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -52,10 +80,8 @@ navigate('/user/dashboard')
 
     });
 
-    
-
+   
 };
-
 
 
   return (
