@@ -10,6 +10,7 @@ import axios from 'axios';
 
 import { useState, useEffect } from 'react';
 import { Title } from '@mui/icons-material';
+import { Button } from '@mui/material';
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -48,6 +49,7 @@ export default function ResellerTable() {
             <TableCell align="right">Username</TableCell>
             <TableCell align="right">Email</TableCell>
             <TableCell align="right">Credits</TableCell>
+            <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,6 +61,7 @@ export default function ResellerTable() {
               <TableCell align="right">{resellerRows.username}</TableCell>
               <TableCell align="right">{resellerRows.email}</TableCell>
               <TableCell align="right">{resellerRows.credits}</TableCell>
+              <TableCell align="right"><Button variant='outlined' >Delete</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

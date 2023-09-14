@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
 import { useState, useEffect } from 'react';
 import { Title } from '@mui/icons-material';
@@ -68,6 +68,7 @@ export default function SubAdminTableo() {
             <TableCell align="right">Email</TableCell>
             <TableCell align="right">Credits</TableCell>
             <TableCell aligh="right" >Password</TableCell>
+            <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -80,6 +81,7 @@ export default function SubAdminTableo() {
               <TableCell align="right">{resellerRows.email}</TableCell>
               <TableCell align="right">{resellerRows.credits}</TableCell>
               <TableCell align="right">{resellerRows.password}</TableCell>
+              <Button align="right"></Button>
 
             </TableRow>
           ))}

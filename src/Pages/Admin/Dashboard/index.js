@@ -444,6 +444,12 @@ export default function AdminDashboard() {
       </ListItemIcon>
       <ListItemText primary="Add Channels" />
     </ListItemButton>
+    <ListItemButton onClick={()=> window.location.href="/channelEdit"} >
+      <ListItemIcon>
+        <LayersIcon />
+      </ListItemIcon>
+      <ListItemText primary="Edit Channels" />
+    </ListItemButton>
               <Divider sx={{ my: 1 }} />
               <ListSubheader component="div" inset>
       Credits Function

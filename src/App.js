@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import '@fontsource/roboto/300.css'
 import "./App.css"
 import Error from './Pages/Error';
-import { BrowserRouter as Router ,Route,Routes } from 'react-router-dom';
+import { BrowserRouter as Router ,Route,Routes,useNavigate } from 'react-router-dom';
 import AdminSignIn from './Pages/Admin/Login';
 import AdminDashboard from './Pages/Admin/Dashboard';
 import SubAdminSignIn from './Pages/SubAdmin/SignIn';
@@ -14,8 +14,10 @@ import ResellerLogin from './Pages/Reseller/SignIn';
 import ResellerDashboard from './Pages/Reseller/Dashboard';
 import UserSignIn from './Pages/User/SignIn';
 import ShakaPlayer from './Pages/User/ShakaPlayer';
+import ChannelEdit from './Pages/Admin/Dashboard/ChannelEdit';
 
 function App() {
+  const navigate=useNavigate();
   return (
     <Router>
 <Routes>
@@ -29,7 +31,8 @@ function App() {
 <Route path='/user/signin' element={<UserSignIn/>}/>
 <Route path='/user/dashboard/' element={<UserDashboard/>}/>
 <Route path='/livetv' element={<ShakaPlayer/>}/>
-  <Route path='/*' element={<ShakaPlayer   />} />
+<Route path="/channelEdit" element={<ChannelEdit/>}/>
+  <Route path='/*'  />
 </Routes>
 
       </Router>
